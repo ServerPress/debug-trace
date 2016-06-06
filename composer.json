@@ -1,0 +1,16 @@
+{
+    "name": "serverpress/debug-trace",
+    "description": "Adds trace function, a cross platform, cross language (PHP and JavaScript) statement to output text to a debug window.",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "authors":[
+        {
+            "name": "Stephen J. Carnam",
+            "email": "steve@serverpress.com",
+            "homepage": "https://github.com/serverpress"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
