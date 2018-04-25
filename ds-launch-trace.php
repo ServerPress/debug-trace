@@ -7,18 +7,34 @@ ds_launch_trace();
  */
 function ds_launch_trace()
 {
-	global $ds_runtime;
-	if ( 'Darwin' !== PHP_OS ) {
-		// Windows
-		$cmd = dirname( $ds_runtime->ds_plugins_dir ) . '/Trace.exe';
-	} else {
-		// Macintosh
-		$cmd = dirname( $ds_runtime->ds_plugins_dir ) . '/Trace';
+	if ( ! defined( 'DS_OS_DARWIN' ) ) {
+		// OS-specific defines
+		define( 'DS_OS_DARWIN', 'Darwin' === PHP_OS );
+		define( 'DS_OS_WINDOWS', !DS_OS_DARWIN && FALSE !== strcasecmp('win', PHP_OS ) );
+		define( 'DS_OS_LINUX', FALSE === DS_OS_DARWIN && FALSE === DS_OS_WINDOWS );
 	}
 
-	if ( !empty( $cmd ) )
-		exec( $cmd );
+	$ds_dir = getenv( 'DS_INSTALL' );
+	if ( empty( $ds_dir ) ) {
+		if ( DS_OS_DARWIN ) {
+			$ds_dir = '/Applications/XAMPP/';
+		} else if ( DS_OS_WINDOWS ) {
+			$ds_dir = 'c:\\xampplite\\';
+		}
+	}
 
-	$ds_runtime->do_action( 'pre_ds_launch_trace' );
-	exec( $cmd );
+	if ( DS_OS_WINDOWS ) {
+		// Windows
+		$cmd = $ds_dir . 'Trace.exe';
+	} else if ( DS_OS_DARWIN ) {
+		// Macintosh
+		$cmd = $ds_dir . 'Trace';	
+	}
+trace('launch: ' . var_export($cmd, TRUE));
+
+	if ( !empty( $cmd ) ) {
+		global $ds_runtime;
+		$ds_runtime->do_action( 'pre_ds_launch_trace' );
+		shell_exec( $cmd );
+	}
 }
