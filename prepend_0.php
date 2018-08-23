@@ -1,7 +1,9 @@
 <?php
 // Bind early and suppress initial redefine notice, gets set back to E_ALL in WP's load.php
 error_reporting( E_ALL & ~E_NOTICE );
-define( 'WP_DEBUG', TRUE );
+if ( PHP_SAPI !== 'cli' ) {
+	define('WP_DEBUG', true);
+}
 
 // Proxy our message over to trace window/avoid cross-domain trust issues
 if ( isset( $_GET['m']) ) {
