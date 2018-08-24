@@ -1,8 +1,8 @@
 <?php
 // Bind early and suppress initial redefine notice, gets set back to E_ALL in WP's load.php
 error_reporting( E_ALL & ~E_NOTICE );
-if ( PHP_SAPI !== 'cli' ) {
-	define('WP_DEBUG', true);
+if ( 'cli' !== PHP_SAPI ) {
+	define( 'WP_DEBUG', TRUE );
 }
 
 // Proxy our message over to trace window/avoid cross-domain trust issues
@@ -38,6 +38,15 @@ $ds_runtime->add_action( 'append_tools_menu', 'ds_append_menu' );
 function ds_append_menu()
 {
 	echo '<li><a href="#" data-ref="http://localhost/ds-plugins/debug-trace/ds-launch-trace.php" class="ds-trace-menu">Start Debug/Trace Window</a></li>';
+}
+
+/**
+ * Callback for including jQuery in header #5
+ */
+$ds_runtime->add_action( 'ds_head', 'ds_trace_head' );
+function ds_trace_head()
+{
+	echo '<script src="http://localhost/js/jquery.min.js" data-source="ds-debug"></script>';
 }
 
 $ds_runtime->add_action( 'ds_footer', 'ds_trace_footer' );

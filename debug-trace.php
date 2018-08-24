@@ -4,7 +4,7 @@ Plugin Name: Debug and Trace
 Plugin URI: http://serverpress.com/plugins/debug-trace
 Description: Forces WP_DEBUG = true and enables cross-platform/language trace statement in PHP and JavaScript. Use the Trace window for debugging.
 Author: Stephen Carnam, Dave Jesch
-Version: 2.1.1
+Version: 2.1.2
 Text Domain: debug-trace
 Author URI: http://steveorevo.com/
 */
