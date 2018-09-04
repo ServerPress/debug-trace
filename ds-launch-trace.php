@@ -28,7 +28,7 @@ function ds_launch_trace()
 		$cmd = $ds_dir . 'Trace.exe';
 	} else if ( DS_OS_DARWIN ) {
 		// Macintosh
-		$cmd = $ds_dir . 'Trace';	
+		$cmd = 'open ' . $ds_dir . 'Trace.app';	
 	}
 trace('launch: ' . var_export($cmd, TRUE));
 
